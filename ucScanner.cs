@@ -6,21 +6,21 @@ namespace VTools
 {
     public partial class ucScanner : UserControl, IScanner
     {
-        private static string PROBLEMS = "Problems: ";
+     
 
-        private IScanner serial;
+        private IScanner scanner;
 
         public int BaudRate
         {
             get
             {
-                return Convert.ToInt32(this.baudbox.Text);
+                return Convert.ToInt32(this.baudbox.Text.Trim());
             }
 
             set
             {
                 this.baudbox.Text = value.ToString();
-                this.serial.BaudRate = value;
+                this.scanner.BaudRate = value;
             }
         }
 
@@ -34,7 +34,7 @@ namespace VTools
             set
             {
                 this.comBox.Text = value.Trim();
-                this.serial.ComPort = value.Trim();
+                this.scanner.ComPort = value.Trim();
             }
         }
 
@@ -48,7 +48,7 @@ namespace VTools
             set
             {
                 this.dataBitsBox.Text = value.ToString();
-                this.serial.DataBits = value;
+                this.scanner.DataBits = value;
             }
         }
 
@@ -58,7 +58,7 @@ namespace VTools
             set
             {
                 delayTimeFileBox.Text = value.ToString();
-                serial.DelayTimeFile = value;
+                scanner.DelayTimeFile = value;
             }
         }
 
@@ -68,7 +68,7 @@ namespace VTools
             set
             {
                 delayTimeMsgBox.Text = value.ToString();
-                serial.DelayTimeMsg = value;
+                scanner.DelayTimeMsg = value;
             }
         }
 
@@ -78,7 +78,7 @@ namespace VTools
             set
             {
                 maxlengthBox.Text = value.ToString();
-                serial.MaxLength = value;
+                scanner.MaxLength = value;
             }
         }
 
@@ -86,32 +86,41 @@ namespace VTools
         {
             set
             {
-                serial.OpenPort=(value);
-
-                this.open.Enabled = !this.serial.IsOpen;
-                this.close.Enabled = serial.IsOpen;
+                scanner.OpenPort = (value);
+                setOpenCloseEnable();
             }
+        }
+
+        private void setOpenCloseEnable()
+        {
+            bool ok = IsOpen;
+
+            this.open.Enabled = !ok;
+            this.close.Enabled = ok;
         }
 
         public string Result
         {
-            get { return serial.Result; }
-            set { serial.Result = value; }
+            get { return scanner.Result; }
+            set { scanner.Result = value; }
         }
 
         public string SendContent
         {
-            get { return serial.SendContent; }
+            get { return scanner.SendContent; }
 
             set
             {
-                serial.SendContent = value;
+                scanner.SendContent = value;
             }
         }
 
         public string Status
         {
-            get { return this.status.Text; }
+            get {
+               
+                return this.status.Text; 
+            }
             set { this.status.Text = value; }
         }
 
@@ -119,47 +128,51 @@ namespace VTools
         {
             get
             {
-               return serial.Exception;
+               return scanner.Exception;
             }
         }
 
         public void Flush()
         {
-            serial.Flush();
+            scanner.Flush();
 
             // checkStatus(PROBLEMS, exception?.Message);
         }
 
-        public void Listen(ref EventHandler cBack, string com = "", int baud = 9800, int databits =8,  Parity p = Parity.None, StopBits s = StopBits.One, Handshake h = Handshake.None)
+        public void Listen(string com="" , int baud = 9600, int databits =8,  Parity p = Parity.None, StopBits s = StopBits.One, Handshake h = Handshake.None)
         {
-            serial.Listen(ref cBack, ComPort, BaudRate, DataBits);
+            if (baud!=BaudRate)
+            {
+                BaudRate = baud;
+            }
+            if (databits!=DataBits)
+            {
+                DataBits = databits;
+            }
+            if (!string.IsNullOrEmpty(com))
+            {
+                ComPort = com;
+            }
+            scanner.Listen(ComPort, BaudRate, DataBits,p,s,h);
         }
 
         public void SendFile(ref string filePath, ref string safeFileWithExtension)
         {
-            serial.SendFile(ref filePath, ref safeFileWithExtension);
+            scanner.SendFile(ref filePath, ref safeFileWithExtension);
         }
 
         private void checkStatus(object sender, EventArgs e)
         {
-            this.status.Text = serial.Status;
-            if (serial.Exception != null)
-            {
-                this.status.Text = PROBLEMS + serial.Exception.Message;
-            }
+            this.status.Text = scanner.Status;
+         
             Application.DoEvents();
         }
 
         private void close_Click(object sender, EventArgs e)
         {
-            if (sender.Equals(this.close))
-            {
-                this.OpenPort = false;
-            }
-            else
-            {
-                this.OpenPort = true;
-            }
+           
+                this.OpenPort = !(sender.Equals(this.close));
+          
         }
 
         private void flushBtn_Click(object sender, EventArgs e)
@@ -192,16 +205,18 @@ namespace VTools
 
             if (sender.Equals(this.comBox))
             {
-                this.serial.ComPort = ComPort;
+                this.scanner.ComPort = ComPort;
+                setOpenCloseEnable();
             }
             else if (sender.Equals(this.baudbox))
             {
-                this.serial.BaudRate = BaudRate;
+                this.scanner.BaudRate = BaudRate;
             }
             else if (sender.Equals(this.dataBitsBox))
             {
-                this.serial.DataBits = DataBits;
+                this.scanner.DataBits = DataBits;
             }
+
         }
 
         private void sendFiles_Click(object sender, EventArgs e)
@@ -217,20 +232,23 @@ namespace VTools
 
         public ucScanner()
         {
+            scanner = new Scanner();
+
+            scanner.FeedBack = checkStatus;
+
             InitializeComponent();
 
-            this.open.Enabled = true;
-            this.close.Enabled = false;
-            serial = new Scanner();
+          
+           
 
-            serial.FeedBack = checkStatus;
+            setOpenCloseEnable();
         }
 
         public bool IsOpen
         {
             get
             {
-                return this.serial.IsOpen;
+                return this.scanner.IsOpen;
             }
         }
 
@@ -238,7 +256,14 @@ namespace VTools
         {
             set
             {
-                this.serial.FeedBack = value;
+                this.scanner.FeedBack = value;
+            }
+        }
+        public EventHandler CallBack
+        {
+            set
+            {
+                this.scanner.CallBack = value;
             }
         }
 

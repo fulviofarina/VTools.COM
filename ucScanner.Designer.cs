@@ -35,11 +35,12 @@
             this.baudbox = new System.Windows.Forms.ToolStripTextBox();
             this.dataBitsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataBitsBox = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.delayTimeMsg = new System.Windows.Forms.ToolStripMenuItem();
             this.delayTimeMsgBox = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.maxLengthToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.maxlengthBox = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.delayTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.delayTimeFileBox = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -52,11 +53,10 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.comBox = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.status = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.status = new System.Windows.Forms.ToolStripLabel();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -134,6 +134,11 @@
             this.dataBitsBox.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.dataBitsBox.Click += new System.EventHandler(this.parameterBoxTextChanged);
             // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(261, 6);
+            // 
             // delayTimeMsg
             // 
             this.delayTimeMsg.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -151,11 +156,6 @@
             this.delayTimeMsgBox.Text = "50";
             this.delayTimeMsgBox.ToolTipText = "Delay time when transfering messages (in ms)";
             // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(261, 6);
-            // 
             // maxLengthToolStripMenuItem
             // 
             this.maxLengthToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -172,6 +172,11 @@
             this.maxlengthBox.Size = new System.Drawing.Size(152, 33);
             this.maxlengthBox.Text = "8";
             this.maxlengthBox.ToolTipText = "Maximum char length per transfer";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(261, 6);
             // 
             // delayTimeToolStripMenuItem
             // 
@@ -259,7 +264,7 @@
             this.comBox.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comBox.Name = "comBox";
             this.comBox.Size = new System.Drawing.Size(100, 57);
-            this.comBox.Text = "4";
+            this.comBox.Text = "6";
             this.comBox.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.comBox.TextChanged += new System.EventHandler(this.parameterBoxTextChanged);
             // 
@@ -267,23 +272,6 @@
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 57);
-            // 
-            // status
-            // 
-            this.status.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.status.Name = "status";
-            this.status.Size = new System.Drawing.Size(66, 54);
-            this.status.Text = "STATUS";
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(261, 6);
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.Multiselect = true;
             // 
             // toolStripButton1
             // 
@@ -301,6 +289,18 @@
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
             this.toolStripSeparator8.Size = new System.Drawing.Size(6, 57);
+            // 
+            // status
+            // 
+            this.status.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.status.Name = "status";
+            this.status.Size = new System.Drawing.Size(66, 54);
+            this.status.Text = "STATUS";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Multiselect = true;
             // 
             // ucScanner
             // 

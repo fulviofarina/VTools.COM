@@ -22,12 +22,16 @@ namespace VTools
         string Status { get; set; }
         int DelayTimeMsg { get; set; }
 
-        void Listen(ref EventHandler cBack, string com, int baudRate, int databits, Parity p = Parity.None, StopBits s = StopBits.One, Handshake h = Handshake.None);
+        void Listen( string com="", int baudRate=9800, int databits=8, Parity p = Parity.None, StopBits s = StopBits.One, Handshake h = Handshake.None);
         EventHandler FeedBack
         {
             set;
         }
-       void SendFile(ref string filepath, ref string safeFileWithExtension);
+        EventHandler CallBack
+        {
+            set;
+        }
+        void SendFile(ref string filepath, ref string safeFileWithExtension);
         void Flush();
    
 
